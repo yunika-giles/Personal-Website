@@ -13,15 +13,9 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    container:
-      image: amazon/aws-cli:2.13.9
-    steps:
-      - name: Check AWS CLI Version
-        run: aws --version
-
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete  --exclude '.git/*'
 
 
     - name: Sync to S3
