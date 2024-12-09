@@ -13,11 +13,15 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Update Repositories and Install AWS CLI
-  run: |
-    sudo apt-get update
-    sudo apt-get install -y awscli
-    aws --version
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: amazon/aws-cli:2.13.9
+    steps:
+      - name: Check AWS CLI Version
+        run: aws --version
+
 
 
     - name: Sync to S3
